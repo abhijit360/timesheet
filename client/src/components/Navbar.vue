@@ -73,14 +73,17 @@
                     color: textPrimary,
                   }"
                 >Account</v-list-item>
-              <v-list-item 
-                v-if="xs"
-                class="my-2"
-                prepend-icon="mdi-bell"
-                :style="{
-                  color: textPrimary,
-                }"
-              >Notifications</v-list-item>
+                
+              <v-tooltip text="#(must compute) notifications">
+                <v-list-item 
+                  v-if="xs"
+                  class="my-2"
+                  prepend-icon="mdi-bell"
+                  :style="{
+                    color: textPrimary,
+                  }"
+                >Notifications</v-list-item>
+              </v-tooltip>
              
               <v-list-item 
                 v-if="xs"
@@ -232,7 +235,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, onMounted } from 'vue'
+import { computed, ref, onMounted, defineEmits} from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import type { RouteRecordRaw } from 'vue-router'
 

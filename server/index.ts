@@ -1,8 +1,12 @@
 import dotenv from 'dotenv';
 import express from 'express';
 
-import queriesRoute from './queries';
-
+import {router as queriesRoute}from './queries';
+import {router as projectRouter} from "./routes/projectRoutes";
+import {router as timesheetRouter} from "./routes/timesheetsRoutes";
+import {router as timesheetEntriesRouter} from './routes/timesheetEntriesRoutes';
+import {router as usersRouter} from './routes/usersRoutes';
+import { timeStamp } from 'console';
 
 const cors = require('cors');
 
@@ -16,7 +20,7 @@ dotenv.config();
 const { OAuth2 } = google.auth;
 const { GOOGLE_OAUTH_CLIENT_ID, GOOGLE_OAUTH_CLIENT_SECRET } = process.env;
 // const redirectUri = process.env.NODE_ENV ? 'produrl' : 'http://localhost:5174';
-const redirectUri = 'http://localhost:5174'
+const redirectUri = 'http://localhost:5173' // fixed the redirect URL stuff
 module.exports.redirectUri = redirectUri;
 
 const scope = [
@@ -55,7 +59,11 @@ function getAuthUrl() {
   });
 }
 
-app.use('/api', queriesRoute);
+app.use('/api/projects',projectRouter);
+app.use('/api/timesheets', timesheetRouter)
+app.use('/api/timesheetEntries', timesheetEntriesRouter);
+app.use('/api/users',usersRouter);
+// app.use('/api', queriesRoute);
 
 app.get('/api/auth/url', (req, res) => {
   res.json({ url: getAuthUrl() });
