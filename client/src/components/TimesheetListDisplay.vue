@@ -119,7 +119,13 @@ const props = defineProps<{
   updateState: (newState: TimesheetStateTypes) => void,
 }>()
 
-
+// extract out
+type Timesheet = {
+  timesheetid: number,
+  enddate: string,
+  totalHours: number,
+  status: 'working' | 'submitted' | 'approved' | 'revise'
+}
 
 const getStatusChipColor = (status: Timesheet['status']) => {
   switch (status) {
